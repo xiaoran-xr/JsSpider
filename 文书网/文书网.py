@@ -48,4 +48,20 @@ def wenshu_list_spider():
 
 
 if __name__ == '__main__':
-    wenshu_list_spider()
+    for i in range(10):
+        try:
+            resp = wenshu_list_spider()
+        except Exception:
+            # 有可能是访问错误
+            print(i, 'error')
+        else:
+            if '文书ID' in resp:
+                import json
+                resp1 = eval(json.loads(resp))
+                print(type(resp1), resp1)
+                for i in resp1:
+                    print(i)
+                break
+            else:
+                # 可能是返回系统繁忙
+                pass
